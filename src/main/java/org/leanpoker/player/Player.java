@@ -40,8 +40,12 @@ public class Player {
         int minimumReturn = buyIn - currentBet + minRaise;
 
         if (round == 0) {
-            if (firstCard.rank == secondCard.rank) {
+            if (firstCard.rank.equals(secondCard.rank)) {
                 minimumReturn += stack * 0.8;
+            }
+            if ((firstCard.rank.equals("A") && secondCard.rank.equals("K"))
+                    || (firstCard.rank.equals("K") && secondCard.rank.equals("A"))) {
+                minimumReturn += stack * 0.6;
             }
         }
         return minimumReturn;
