@@ -23,20 +23,12 @@ public class Player {
             commCards.add(getFromJsonCard(element));
         });
 
-        Number buyIn = request.getAsJsonObject().get("current_buy_in").getAsNumber();
+        int buyIn = getNumberFromJson(request, "current_buy_in");
+        int blind = getNumberFromJson(request, "small_blind");
+        int pot = getNumberFromJson(request, "pot");
+        int minRaise = getNumberFromJson(request, "minimum_raise");
 
-// Number blind = request.get
-
-//         Number pot = 
-
-//         Number minRaise;
-
-        int bet = 100; 
-        if(firstCard.rank == secondCard.rank) {
-            bet = 5000;
-        }
-        // return getBet(firstCard, secondCard, commCards, minimumBet);
-        return bet;
+        return getBet(firstCard, secondCard, commCards, buyIn, blind, pot, minRaise);
     }
 
     public static Card getFromJsonCard(JsonElement element) {
@@ -44,15 +36,14 @@ public class Player {
                 element.getAsJsonObject().get("suit").getAsString());
     }
 
-    public static Card getNumberFromJson(JsonElement element) {
-        return new Card(element.getAsJsonObject().get("rank").getAsString(),
-                element.getAsJsonObject().get("suit").getAsString());
+    public static int getNumberFromJson(JsonElement request, String property) {
+        return request.getAsJsonObject().get(property).getAsNumber().intValue();
     }
 
-    // public static int getBet() {
-
-        
-    // }
+    public static int getBet(Card firstCard, Card secondCard, ArrayList<Card> commCards, int buyIn, int blind,
+            int pot, int minRaise) {
+        return 100;
+    }
 
     public static void showdown(JsonElement game) {
     }
