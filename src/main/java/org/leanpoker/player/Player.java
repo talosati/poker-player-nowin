@@ -30,12 +30,20 @@ public class Player {
         int round = getNumberFromJsonRoot(request, "round");
         int currentBet = request.getAsJsonObject().get("players").getAsJsonArray().get(playerIndex.intValue())
                 .getAsJsonObject().get("bet").getAsNumber().intValue();
+        int stack = request.getAsJsonObject().get("players").getAsJsonArray().get(playerIndex.intValue())
+                .getAsJsonObject().get("stack").getAsNumber().intValue();
 
         ArrayList<Card> allCards = new ArrayList<>();
         allCards.addAll(commCards);
         allCards.add(firstCard);
         allCards.add(secondCard);
         int minimumReturn = buyIn - currentBet + minRaise;
+
+        if (round == 0) {
+            if (firstCard.rank == secondCard.rank) {
+                minimumReturn += stack * 0.8;
+            }
+        }
         return minimumReturn;
     }
 
